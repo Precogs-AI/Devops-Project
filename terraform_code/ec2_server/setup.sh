@@ -22,7 +22,8 @@ echo \
 sudo apt-get update -y
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 sudo usermod -aG docker ubuntu
-sudo chmod 777 /var/run/docker.sock
+# Removed insecure chmod 777
+# sudo chmod 777 /var/run/docker.sock
 # sudo newgrp docker
 docker --version
 
@@ -60,10 +61,15 @@ port1=8080
 port2=9000
 
 # Generate Jenkins initial login password
-pass=$(sudo cat /var/lib/jenkins/secrets/initialAdminPassword)
+# Securely handle the password instead of exposing it in plaintext
+# pass=$(sudo cat /var/lib/jenkins/secrets/initialAdminPassword)
 
+# echo "Access Jenkins Server here --> http://$ip:$port1"
+# echo "Jenkins Initial Password: $pass"
+
+# Provide instructions to securely retrieve the password
 echo "Access Jenkins Server here --> http://$ip:$port1"
-echo "Jenkins Initial Password: $pass"
-echo
+echo "To retrieve the Jenkins initial password, run: sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
+
 echo "Access SonarQube Server here --> http://$ip:$port2"
 echo "SonarQube Username & Password: admin"
